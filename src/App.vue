@@ -1,8 +1,9 @@
 <template>
-	<div class="flex w-full h-full  bg-[#f3f3f3]">
+	<!-- <div class="flex w-full h-full  bg-[#f3f3f3]">
 		<SideMenu class="w-220px h-full bg-white p-4" />
 		<HelloWorld class="flex-1  h-full" msg="Vite + Vue" />
-	</div>
+	</div> -->
+	<router-view></router-view>
 </template>
 
 <script setup lang="ts">
@@ -28,6 +29,10 @@ import SideMenu from './components/SideMenu.vue'
 </style>
 
 <style>
+* {
+	box-sizing: border-box;
+}
+
 body,
 html,
 #app {

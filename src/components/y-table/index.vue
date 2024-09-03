@@ -9,49 +9,12 @@
 				color: '#3B464B',
 				...$attrs['header-cell-style']
 			}">
+
 			<slot></slot>
 
-			<template v-for="column in tableConfig.columns">
-				<el-table-column v-if="column.type == 'index'" :key="column.prop + column.label"
-					v-bind="{ ...column, slot: undefined }" :align="column.align || tableConfig.align"
-					:showOverflowTooltip="column.showOverflowTooltip || tableConfig.showOverflowTooltip" />
-
-				<el-table-column v-else-if="column.type == 'selection'" :key="column.prop + column.label + 'selection'"
-					v-bind="{ ...column, slot: undefined }" :align="column.align || tableConfig.align"
-					:showOverflowTooltip="column.showOverflowTooltip || tableConfig.showOverflowTooltip" />
-
-				<el-table-column v-else :key="column.prop + column.label + 'else'"
-					v-bind="{ ...column, slot: undefined }" :align="column.align || tableConfig.align"
-					:showOverflowTooltip="column.showOverflowTooltip || tableConfig.showOverflowTooltip">
-					<!-- 自定义头部 -->
-					<template #header="scope">
-						<template v-if="column.header && column.header.slot">
-							<slot :name="column.header.slot" :row="scope.row"></slot>
-						</template>
-
-						<span v-else> {{ column.label }}</span>
-					</template>
-
-					<!-- 自定义列内容(列) -->
-					<template #default="scope">
-						<template v-if="column.slot">
-							<slot :name="column.slot" v-bind="{ ...scope }"></slot>
-						</template>
-
-						<template v-else-if="column.component">
-							<component :is="column.component" v-bind="{ ...scope }" :column="column" />
-						</template>
-
-						<template v-else-if="column.map">
-							<span>{{ column.map[scope.row[column.prop]] }}</span>
-						</template>
-
-						<template v-else-if="scope.row.isEdit && column.isEdit">
-							<el-input v-model="scope.row[column.prop]" />
-						</template>
-					</template>
-				</el-table-column>
-			</template>
+			<ElTableItem :columns="tableConfig.columns" :align="tableConfig.align"
+				:showOverflowTooltip="tableConfig.showOverflowTooltip">
+			</ElTableItem>
 
 			<slot name="suffix-column"></slot>
 
@@ -81,6 +44,8 @@
 </template>
 
 <script lang="ts" setup>
+// import ElTableColumn from 'element-plus/es/components/table/src/tableColumn.mjs';
+import ElTableItem from './el-table-item.vue'
 import { reactive, computed, ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 const props = defineProps({
