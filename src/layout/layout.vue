@@ -1,11 +1,11 @@
 <template>
 	<div class="app-wraper border h-full w-full overflow-hidden flex flex-wrap">
 		<Header class="w-full h-60px border" />
-		<SideMenu class=" h-[calc(100%-100px)] overflow-auto" />
-		<div class="main">
+		<SideMenu class=" h-[calc(100%-60px)] overflow-auto" />
+		<div class="main relative w-full h-[calc(100%-60px)] overflow-auto">
 			<router-view />
+			<Footer class="absolute bottom-0 left-0 border w-full h-40px flex justify-center items-center" />
 		</div>
-		<Footer class="border w-full h-40px flex justify-center items-center" />
 	</div>
 </template>
 <script lang="ts">

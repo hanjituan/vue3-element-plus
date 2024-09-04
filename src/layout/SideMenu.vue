@@ -1,9 +1,6 @@
 <template>
-	<div class="border">
-		<el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-			<el-radio-button :value="false">expand</el-radio-button>
-			<el-radio-button :value="true">collapse</el-radio-button>
-		</el-radio-group>
+	<div class="border border-b-0 relative">
+
 		<el-menu default-active="2" class="el-menu-vertical-demo" :collapse="isCollapse" @open="handleOpen"
 			@close="handleClose">
 			<el-sub-menu index="1">
@@ -43,6 +40,14 @@
 				<template #title>Navigator Four</template>
 			</el-menu-item>
 		</el-menu>
+
+		<div class="absolute border-b-0 border-r-0 bottom-0 left-0 w-full p-4 border flex items-center justify-center
+		 hover:bg-blue-100 cursor-pointer transition-colors duration-300" @click="isCollapse = !isCollapse">
+			<el-icon>
+				<Expand v-if="isCollapse" />
+				<Fold v-else />
+			</el-icon>
+		</div>
 	</div>
 </template>
 
@@ -53,6 +58,8 @@ import {
 	Menu as IconMenu,
 	Location,
 	Setting,
+	Expand,
+	Fold
 } from '@element-plus/icons-vue'
 
 const isCollapse = ref(false)
