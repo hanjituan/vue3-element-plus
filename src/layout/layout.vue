@@ -8,10 +8,24 @@
 		<Footer class="border w-full h-40px flex justify-center items-center" />
 	</div>
 </template>
-<script lang="ts" setup>
-import SideMenu from './SideMenu.vue';
+<script lang="ts">
 import Header from './header.vue';
 import Footer from './footer.vue';
+import { defineComponent } from 'vue';
+import SideMenu from './SideMenu.vue';
+export default defineComponent({
+	name: 'Layout',
+	components: {
+		SideMenu,
+		Header,
+		Footer,
+	},
+
+	setup() {
+
+		return
+	}
+});
 
 </script>
 <style scoped>
