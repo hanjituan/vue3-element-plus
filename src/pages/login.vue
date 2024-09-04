@@ -3,8 +3,6 @@
 	<!--渐变背景 bg-gradient-to-br from-blue-500 to-green-500 -->
 	<div class="p-0 bg-[#f3f3f3] w-full h-full flex justify-center items-center relative login-page z-index-1">
 
-		<!-- <img src="@/assets/images/login-bg.jpg" alt=""> -->
-
 		<el-form ref="loginFormRef" :model="loginForm" label-width="150" :rules="rules" size="large"
 			label-position="top" class="w-500px bg-[#ffffffb6] text-[#262D30] p-8 shadow-md rounded-md ">
 
