@@ -29,7 +29,5 @@ export default defineComponent({
 
 </script>
 <style scoped>
-.app-wraper {
-	border: 1px solid red;
-}
+.app-wraper {}
 </style>
