@@ -13,6 +13,7 @@ import Header from './header.vue';
 import Footer from './footer.vue';
 import { defineComponent } from 'vue';
 import SideMenu from './SideMenu.vue';
+
 export default defineComponent({
 	name: 'Layout',
 	components: {
@@ -23,7 +24,6 @@ export default defineComponent({
 
 	setup() {
 
-		return
 	}
 });
 
