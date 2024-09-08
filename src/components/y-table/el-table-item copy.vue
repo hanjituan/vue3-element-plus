@@ -5,7 +5,7 @@
 		<el-table-column v-if="column.children" :label="column.label + '13'">
 			<template #default>
 				<ElTableItem :columns="column.children" :align="align" :showOverflowTooltip="showOverflowTooltip" />
-				<span @click="con">{{ column }}</span>
+				<span>{{ column }}</span>
 			</template>
 		</el-table-column>
 
@@ -84,16 +84,11 @@ export default defineComponent({
 			activeTab: '1'
 		})
 
-		const con = () => {
-			console.log(ElTableItem);
-		}
-
 		const startMeeting = () => {
 			state.isMeetingStart = true
 		}
 		return {
 			state,
-			con,
 			startMeeting,
 
 			// 	<>

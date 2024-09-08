@@ -8,11 +8,13 @@
 		</div>
 	</div>
 </template> -->
+
 <script lang="tsx">
 
 import Header from './header.vue';
 import Footer from './footer.vue';
 import SideMenu from './SideMenu.vue';
+import Setting from './setting.vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -26,6 +28,8 @@ export default defineComponent({
 					<router-view />
 					<Footer class="absolute bottom-0 left-0 border w-full h-40px flex justify-center items-center" />
 				</div>
+
+				<Setting class="fixed right-4 bottom-1/2" />
 			</div>
 		);
 	}

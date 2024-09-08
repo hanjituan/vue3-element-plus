@@ -147,7 +147,6 @@ const init = async (page?: { pageSize: number; pageNum: number }) => {
 	}
 	tableConfig.loading = true
 	const data: any = await makeFakeData(params)
-	console.log(data)
 	tableConfig.tableData = data
 	tableConfig.loading = false
 	tableConfig.total = tableConfig.tableData.length
@@ -161,8 +160,7 @@ const setPageInfo = (page: { pageNum?: number; pageSize?: number; }) => {
 	init()
 }
 
-const remove = (item) => {
-	console.log(item)
+const remove = () => {
 }
 
 onMounted(() => {

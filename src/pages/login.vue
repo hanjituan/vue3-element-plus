@@ -86,7 +86,7 @@ const login = async () => {
 			ElMessage.success('登录成功')
 			router.push('layout')
 		} catch (error) {
-			console.log('confirmDialog:', error)
+			console.log('loginRequest:', error)
 		} finally {
 			loading.value = false
 		}

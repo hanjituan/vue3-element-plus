@@ -37,7 +37,6 @@ const router = useRouter()
 const isHovering = ref(false)
 
 const handleCommand = (type: string) => {
-	// console.log(value);
 	if (type === 'logout') {
 		// 退出登录
 		router.push('/login')
