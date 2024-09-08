@@ -123,7 +123,7 @@ const login = async () => {
 	padding: 0;
 }
 
-.login-form-item>>>.el-input__inner:focus {
+.login-form-item :deep(.el-input__inner:focus) {
 	--tw-ring-color: transparent
 }
 </style>
