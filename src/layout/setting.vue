@@ -34,8 +34,16 @@ onMounted(async () => {
 
 // 拖动之后恢复 Y 轴的位置
 const resetY = () => {
-	ChatBtn.value.style.transform = `translate3d(0, ${transformY.value}px, 0)`;
-	ChatBtn.value.style.transition = `all ease 0.2s`;
+	ChatBtn.value!.style.transform = `translate3d(0, ${transformY.value}px, 0)`;
+	ChatBtn.value!.style.transition = `all ease 0.2s`;
+}
+
+// 改变按钮位置TODO: 位置移动后, 更新fixed 的位置, 不然会抖动
+const changePosition = (x: number, y: number) => {
+	// transformX.value = x
+	// transformY.value = y
+	// ChatBtn.value!.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
+	ChatBtn.value!.style.bottom = `${transformY.value}px`;
 }
 
 const showDrawer = () => {
@@ -44,9 +52,10 @@ const showDrawer = () => {
 }
 
 const initDrag = () => {
+
 	ChatBtn.value?.addEventListener('mousedown', (e) => {
-		ChatBtn.value.style.transition = 'none'
-		ChatBtn.value.style.cursor = 'grab'
+		ChatBtn.value!.style.transition = 'none'
+		ChatBtn.value!.style.cursor = 'grab'
 		if (!chatBtnMouseX.value && !chatBtnMouseY.value) {
 			chatBtnMouseX.value = e.clientX;
 			chatBtnMouseY.value = e.clientY;
@@ -55,12 +64,13 @@ const initDrag = () => {
 	});
 
 	document.addEventListener('mouseup', (e) => {
-		ChatBtn.value.style.cursor = 'default'
-		resetY()
+		ChatBtn.value!.style.cursor = 'default'
 		// set chatBtnMouseX and chatBtnMouseY to micro task
 		setTimeout(() => {
+			resetY()
 			chatBtnDragged.value = false;
 			chatBtnDown.value = false;
+			changePosition()
 		}, 0);
 	});
 
@@ -70,7 +80,7 @@ const initDrag = () => {
 		chatBtnDragged.value = true;
 		transformX.value = e.clientX - chatBtnMouseX.value;
 		transformY.value = e.clientY - chatBtnMouseY.value;
-		ChatBtn.value.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
+		ChatBtn.value!.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
 		e.stopPropagation();
 	});
 }
