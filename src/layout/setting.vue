@@ -24,26 +24,40 @@ const chatBtnMouseX = ref(0)
 const chatBtnMouseY = ref(0)
 const chatBtnDown = ref(false)
 const chatBtnDragged = ref(false)
+const settingIconTop = ref(0)
+const settingIconBottom = ref(0)
 const ChatBtn: Ref<HTMLDivElement | null> = ref(null)
 
-onMounted(async () => {
-	await nextTick();
-	initDrag();
-})
 
-
-// 拖动之后恢复 Y 轴的位置
+// 拖动之后恢复 Y 轴的位置, 计算拖动边界, 防止拖到屏幕外
 const resetY = () => {
-	ChatBtn.value!.style.transform = `translate3d(0, ${transformY.value}px, 0)`;
 	ChatBtn.value!.style.transition = `all ease 0.2s`;
+
+	// 🔼 scroll
+	if (transformY.value < 0 && Math.abs(transformY.value) > settingIconTop.value) {
+		transformY.value = -settingIconTop.value;
+	}
+
+	// 🔽 scroll
+	if (transformY.value > 0 && transformY.value > settingIconBottom.value) {
+		transformY.value = settingIconBottom.value;
+	}
+
+	ChatBtn.value!.style.transform = `translate3d(0, ${transformY.value}px, 0)`;
 }
 
 // 改变按钮位置TODO: 位置移动后, 更新fixed 的位置, 不然会抖动
 const changePosition = (x: number, y: number) => {
-	// transformX.value = x
+	// console.log(x);
+	// console.log(y);
+	// console.log(viewportHeight);
+	// if (y < 0) {
+	// 	transformY.value = viewportHeight - 100
+	// 	ChatBtn.value!.style.bottom = `${transformY.value}px`;
+	// }
 	// transformY.value = y
 	// ChatBtn.value!.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
-	ChatBtn.value!.style.bottom = `${transformY.value}px`;
+	// ChatBtn.value!.style.bottom = `${transformY.value}px`;
 }
 
 const showDrawer = () => {
@@ -67,10 +81,10 @@ const initDrag = () => {
 		ChatBtn.value!.style.cursor = 'default'
 		// set chatBtnMouseX and chatBtnMouseY to micro task
 		setTimeout(() => {
-			resetY()
+			resetY(e)
 			chatBtnDragged.value = false;
 			chatBtnDown.value = false;
-			changePosition()
+			changePosition(e.clientX, e.clientY)
 		}, 0);
 	});
 
@@ -85,6 +99,10 @@ const initDrag = () => {
 	});
 }
 
-
+onMounted(async () => {
+	await nextTick();
+	initDrag();
+	settingIconTop.value = ChatBtn.value!.getBoundingClientRect().top
+	settingIconBottom.value = ChatBtn.value!.getBoundingClientRect().bottom
+})
 </script>
-<style lang="less" scoped></style>
