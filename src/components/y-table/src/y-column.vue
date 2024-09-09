@@ -4,7 +4,7 @@
 
 <script lang="tsx" setup name="YColumn">
 import { useSlots } from 'vue'
-import { TableColumnProps } from './index.vue'
+import { TableColumnProps } from './y-table.vue'
 
 const slots = useSlots()
 

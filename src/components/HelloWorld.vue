@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { onMounted, reactive } from 'vue'
-import Ytable from "./y-table/index.vue"
+import Ytable from "./y-table/y-table.vue"
 
 const tableData = [
 	{
