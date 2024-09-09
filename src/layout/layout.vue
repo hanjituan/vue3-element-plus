@@ -1,14 +1,3 @@
-<!-- <template>
-	<div class="app-wraper border h-full w-full overflow-hidden flex flex-wrap">
-		<Header class="w-full h-60px border" />
-		<SideMenu class=" h-[calc(100%-60px)] overflow-auto" />
-		<div class="main relative w-full h-[calc(100%-60px)] overflow-auto">
-			<router-view />
-			<Footer class="absolute bottom-0 left-0 border w-full h-40px flex justify-center items-center" />
-		</div>
-	</div>
-</template> -->
-
 <script lang="tsx">
 
 import Header from './header.vue';
@@ -21,15 +10,15 @@ export default defineComponent({
 	name: 'Layout',
 	setup() {
 		return () => (
-			<div class="border h-full w-full overflow-hidden flex flex-wrap">
-				<Header class="w-full h-60px border" />
-				<SideMenu class=" h-[calc(100%-60px)] overflow-auto" />
-				<div class="main relative w-full h-[calc(100%-60px)] overflow-auto">
+			<div class="h-full w-full overflow-hidden flex flex-wrap ">
+				<Header class="w-full h-60px shadow z-1" />
+				<SideMenu class=" h-[calc(100%-60px)] overflow-auto bg-white"  />
+				<div class="main relative flex-1 h-[calc(100%-60px)] overflow-auto border bg-[#f3f3f3]">
 					<router-view />
-					<Footer class="absolute bottom-0 left-0 border w-full h-40px flex justify-center items-center" />
+					<Footer class="absolute bottom-0 left-0 border-t bg-white w-full h-50px flex justify-center items-center" />
 				</div>
 
-				<Setting class="fixed right-4 bottom-1/2" />
+				<Setting class="fixed right-4 bottom-1/2 z-2" />
 			</div>
 		);
 	}

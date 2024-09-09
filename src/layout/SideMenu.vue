@@ -1,5 +1,5 @@
 <template>
-	<div class="border border-b-0 relative">
+	<div class="relative">
 
 		<el-menu default-active="2" class="el-menu-vertical-demo border-r-0" :collapse="isCollapse" @open="handleOpen"
 			@close="handleClose">
@@ -41,7 +41,7 @@
 			</el-menu-item>
 		</el-menu>
 
-		<div class="absolute border-b-0 border-r-0 bottom-0 left-0 w-full p-4 border
+		<div class="absolute  bottom-0 left-0 w-full p-4 border-t h-51px
 		 flex items-center justify-center bg-white
 		 hover:bg-blue-100 cursor-pointer transition-colors duration-300" @click="isCollapse = !isCollapse">
 			<el-icon>

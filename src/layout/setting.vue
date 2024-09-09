@@ -6,7 +6,7 @@
 			</el-icon>
 		</div>
 
-		<el-drawer v-model="drawer" title="I am the title" direction="rtl">
+		<el-drawer v-model="drawer" title="I am the title" direction="rtl" :z-index="11">
 			<span>Hi, there!</span>
 		</el-drawer>
 	</div>
