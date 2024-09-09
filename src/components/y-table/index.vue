@@ -10,14 +10,32 @@
 				...$attrs['header-cell-style']
 			}">
 
+			<!-- 默认插槽 -->
 			<slot></slot>
 
-			<ElTableItem :columns="tableConfig.columns" :align="tableConfig.align"
-				:showOverflowTooltip="tableConfig.showOverflowTooltip">
-			</ElTableItem>
+			<template v-for="column in tableConfig.columns.filter((i) => i.vif !== false)">
+				<el-table-column v-if="column.type == 'index'" :key="column.prop + column.label"
+					v-bind="{ ...column, slot: undefined }" :align="column.align || tableConfig.align"
+					:showOverflowTooltip="column.showOverflowTooltip || tableConfig.showOverflowTooltip" />
 
+				<el-table-column v-else-if="column.type == 'selection'" :key="column.prop + column.label + 'selection'"
+					v-bind="{ ...column, slot: undefined }" :align="column.align || tableConfig.align"
+					:showOverflowTooltip="column.showOverflowTooltip || tableConfig.showOverflowTooltip" />
+
+				<YColumn v-else :key="column.prop + column.label + 'else'" :column="column"
+					:showOverflowTooltip="tableConfig.showOverflowTooltip" :align="tableConfig.align"
+					:defaultValue="tableConfig.defaultValue">
+					<template v-for="slot in Object.keys($slots)" #[slot]="scope">
+						<slot :name="slot" v-bind="scope"></slot>
+					</template>
+				</YColumn>
+
+			</template>
+
+			<!-- 尾部插槽 -->
 			<slot name="suffix-column"></slot>
 
+			<!-- 空状态 -->
 			<template #empty>
 				<slot name="empty" v-if="$slots.empty"></slot>
 
@@ -30,6 +48,7 @@
 			</template>
 		</el-table>
 
+		<!-- 分页 -->
 		<div class="flex justify-between mt-4" v-if="showPagination">
 			<div>
 				<slot name="pageStart"></slot>
@@ -44,9 +63,9 @@
 </template>
 
 <script lang="ts" setup>
-// import ElTableColumn from 'element-plus/es/components/table/src/tableColumn.mjs';
-import ElTableItem from './el-table-item.vue'
-import { reactive, computed, ref, onMounted, onUnmounted, nextTick } from 'vue'
+
+import YColumn from './y-column.vue'
+import { computed, reactive, onMounted, onUnmounted, nextTick, ref } from 'vue'
 
 const props = defineProps({
 	tableConfig: {
@@ -69,11 +88,11 @@ export interface TableConfig {
 	loading: boolean
 	showOverflowTooltip?: boolean
 	align?: boolean
-	columns?: Array<TableColumn>
+	columns?: Array<TableColumnProps>
 	tableData?: Array<Record<string, any>>
 }
 
-export interface TableColumn {
+export interface TableColumnProps {
 	label?: string
 	prop?: string
 	width?: number
@@ -84,7 +103,10 @@ export interface TableColumn {
 	component?: any
 	map?: Record<string, string>
 	isEdit?: boolean
-	children?: Array<TableColumn>
+	vif?: boolean
+	header: any
+	render?: (scope: any) => any
+	_children?: Array<TableColumnProps>
 }
 
 const showPagination = computed(() => {
@@ -92,7 +114,8 @@ const showPagination = computed(() => {
 	return !Number.isNaN(pageNum + pageSize + total)
 })
 
-const emit = defineEmits(['refresh', 'sizeChange', 'numChange'])
+
+const emit = defineEmits(['refresh', 'sizeChange', 'numChange', 'inputBlur'])
 
 const sizeChange = (size: number) => {
 	emit('sizeChange', size)
@@ -118,6 +141,10 @@ onUnmounted(() => {
 		window.removeEventListener('resize', setTableFitPage)
 	}
 })
+
+// const inputBlur = (row, column) => {
+//   emit('inputBlur', row, column)
+// }
 
 const realTable = ref(null)
 
@@ -146,5 +173,4 @@ const setTableFitPage = async () => {
 const refresh = (pageInfo: { pageSize: number; pageNum: number }) => {
 	emit('refresh', pageInfo)
 }
-
 </script>
