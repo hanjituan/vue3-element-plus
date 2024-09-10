@@ -48,6 +48,7 @@ const resetY = () => {
 
 // 改变按钮位置TODO: 位置移动后, 更新fixed 的位置, 不然会抖动
 const changePosition = (x: number, y: number) => {
+	console.log(x, y);
 	// console.log(x);
 	// console.log(y);
 	// console.log(viewportHeight);
@@ -81,7 +82,7 @@ const initDrag = () => {
 		ChatBtn.value!.style.cursor = 'default'
 		// set chatBtnMouseX and chatBtnMouseY to micro task
 		setTimeout(() => {
-			resetY(e)
+			resetY()
 			chatBtnDragged.value = false;
 			chatBtnDown.value = false;
 			changePosition(e.clientX, e.clientY)

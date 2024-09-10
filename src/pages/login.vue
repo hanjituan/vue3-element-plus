@@ -4,7 +4,7 @@
 	<div class="p-0 bg-[#f3f3f3] w-full h-full flex justify-center items-center relative login-page z-index-1">
 
 		<el-form ref="loginFormRef" :model="loginForm" label-width="150" :rules="rules" size="large"
-			label-position="top" class="
+			@keyup.enter="login" label-position="top" class="
 			w-500px
 			bg-[#ffffffb6]
 			text-[#262D30]
@@ -18,7 +18,7 @@
 
 			<div
 				class="py-4 font-bold text-xl text-center text-[#262D30] mb-4 animate__animated animate__backInDown !animate-delay-250">
-				我 element-plus + vue3 + ts + vite
+				KFC-ADMIN
 			</div>
 
 			<el-form-item label="用户名" prop="userName" class="animate__animated animate__backInLeft !animate-delay-300">
