@@ -79,13 +79,14 @@ const initDrag = () => {
 	});
 
 	document.addEventListener('mouseup', (e) => {
+		if (!ChatBtn.value) return
 		ChatBtn.value!.style.cursor = 'default'
 		// set chatBtnMouseX and chatBtnMouseY to micro task
 		setTimeout(() => {
 			resetY()
 			chatBtnDragged.value = false;
 			chatBtnDown.value = false;
-			changePosition(e.clientX, e.clientY)
+			// changePosition(e.clientX, e.clientY)
 		}, 0);
 	});
 
