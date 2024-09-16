@@ -6,8 +6,19 @@
 			</el-icon>
 		</div>
 
-		<el-drawer v-model="drawer" title="I am the title" direction="rtl" :z-index="11">
-			<span>Hi, there!</span>
+		<el-drawer append-to-body v-model="drawer" title="配置修改" direction="rtl">
+			<el-divider>布局</el-divider>
+
+			<div class="flex flex-wrap">
+				<el-container class="layout-wrapper">
+					<el-header class="layout-header">Header</el-header>
+					<el-container class="layout-container">
+						<el-aside class="layout-aside" width="200px">Aside</el-aside>
+						<el-main class="layout-main">Main</el-main>
+					</el-container>
+				</el-container>
+			</div>
+
 		</el-drawer>
 	</div>
 </template>
@@ -108,3 +119,31 @@ onMounted(async () => {
 	settingIconBottom.value = ChatBtn.value!.getBoundingClientRect().bottom
 })
 </script>
+
+<style>
+/* .layout-container {
+	background-color: var(--el-color-primary-light-8);
+} */
+.layout-wrapper {
+	border: 1px solid red;
+	display: flex;
+	gap: 8px;
+}
+
+.layout-header {
+	background-color: var(--el-color-primary);
+	color: var(--el-color-white);
+	line-height: 60px;
+}
+
+.layout-aside {
+	background-color: var(--el-color-primary-light-7);
+	color: var(--el-color-white);
+	line-height: 200px;
+}
+
+.layout-main {
+	background-color: var(--el-color-primary-light-9);
+	color: var(--el-color-primary);
+}
+</style>

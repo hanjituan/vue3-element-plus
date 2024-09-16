@@ -1,8 +1,9 @@
 <template>
 	<div class="relative">
 
-		<el-menu default-active="2" class="el-menu-vertical-demo border-r-0" :collapse="isCollapse" @open="handleOpen"
-			@close="handleClose">
+		<!-- background-color="var(--left-menu-bg-color)" text-color="var(--left-menu-item-color)" active-text-color="var(--el-color-primary)" -->
+		<el-menu default-active="1-2" class="el-menu-vertical-demo border-r-0 bg-white dark:(bg-[#1d1d1d] text-white)"
+			:collapse="isCollapse" @open="handleOpen" @close="handleClose">
 			<el-sub-menu index="1">
 				<template #title>
 					<el-icon>
@@ -42,7 +43,7 @@
 		</el-menu>
 
 		<div class="absolute  bottom-0 left-0 w-full p-4 border-t h-51px
-		 flex items-center justify-center bg-white
+		 flex items-center justify-center bg-white dark:(bg-[#1d1d1d] text-white)
 		 hover:bg-blue-100 cursor-pointer transition-colors duration-300" @click="isCollapse = !isCollapse">
 			<el-icon>
 				<Expand v-if="isCollapse" />

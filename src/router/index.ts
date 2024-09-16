@@ -16,8 +16,17 @@ const routes = [
 	{
 		path: '/layout',
 		name: 'layout',
-		component: Layout
+		component: Layout,
+		redirect: '/layout/dashboard',
+		children: [
+			{
+				path: '/layout/dashboard',
+				name: 'dashboard',
+				component: () => import('@/pages/Dashboard.vue'),
+			}
+		]
 	},
+
 ]
 
 const router = createRouter({

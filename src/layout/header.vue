@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center  px-4">
+	<div class="flex items-center px-4">
 
 		<img class="w-12 mr-4 rounded-full" src="@/assets/images/head.png" alt=""
 			:class="{ 'animate-spin': isHovering }" @mouseover="isHovering = true" @mouseleave="isHovering = false" />
@@ -16,7 +16,7 @@
 			</el-button>
 
 			<el-switch v-model="value2" class="mt-2" style="margin-left: 24px" inline-prompt :active-icon="Sunny"
-				:inactive-icon="Close" />
+				:inactive-icon="Close" @change="switchTheme" />
 
 			<el-dropdown placement="top-start" @command="handleCommand">
 				<img class="w-12 rounded-full" src="@/assets/images/head.png" alt="">
@@ -41,6 +41,16 @@ const router = useRouter()
 const isHovering = ref(false)
 
 const value2 = ref(false)
+
+const switchTheme = (value) => {
+	if (value) {
+		document.documentElement.classList.add('dark')
+		document.documentElement.classList.remove('light')
+	} else {
+		document.documentElement.classList.add('light')
+		document.documentElement.classList.remove('dark')
+	}
+}
 
 const handleCommand = (type: string) => {
 	if (type === 'logout') {

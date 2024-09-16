@@ -1,0 +1,48 @@
+:root {
+    --left-menu-bg-color: #3f4652;
+    /* 左侧菜单背景颜色 */
+    --left-menu-item-color: #8b949e;
+    /* 左侧菜单文字颜色 */
+    --left-menu-item-hover-color: #61dafb;
+    /* 左侧菜单鼠标悬浮文字颜色 */
+    --left-menu-item-active-color: #61dafb;
+    /* 左侧菜单激活文字颜色 */
+    --left-menu-item-active-bg-color: #161b22;
+    /* 左侧菜单激活背景颜色 */
+    --left-menu-item-border-color: #282c34;
+    /* 左侧菜单激活边框颜色 */
+    --left-menu-item-hover-bg-color: #282c34;
+    /* 左侧菜单鼠标悬浮背景颜色 */
+    --left-menu-item-hover-border-color: #282c34;
+    /* 左侧菜单鼠标悬浮边框颜色 */
+    --left-menu-item-active-border-color: #282c34;
+    /* 左侧菜单激活边框颜色 */
+    --left-menu-item-active-hover-bg-color: #282c34;
+    /* 左侧菜单激活鼠标悬浮背景颜色 */
+    --left-menu-item-active-hover-border-color: #282c34;
+    /* 左侧菜单激活鼠标悬浮边框颜色 */
+    --left-menu-item-active-hover-color: #61dafb;
+    /* 左侧菜单激活鼠标悬浮文字颜色 */
+
+    --top-menu-bg-color: #0d1117;
+    /* 顶部菜单背景颜色 */
+    --top-menu-item-color: #8b949e;
+    /* 顶部菜单文字颜色 */
+    --top-menu-item-hover-color: #61dafb;
+    /* 顶部菜单鼠标悬浮文字颜色 */
+    --top-menu-item-active-color: #61dafb;
+    /* 顶部菜单激活文字颜色 */
+    --top-menu-item-active-bg-color: #161b22;
+    /* 顶部菜单激活背景颜色 */
+    --top-menu-item-border-color: #282c34;
+    /* 顶部菜单激活边框颜色 */
+    --top-menu-item-hover-bg-color: #282c34;
+    /* 顶部菜单鼠标悬浮背景颜色 */
+    --top-menu-item-hover-border-color: #282c34;
+    /* 顶部菜单鼠标悬浮边框颜色 */
+    --top-menu-item-active-hover-bg-color: #282c34;
+    /* 顶部菜单激活鼠标悬浮背景颜色 */
+    --top-menu-item-active-hover-border-color: #282c34;
+    /* 顶部菜单激活鼠标悬浮边框颜色 */
+    --top-menu-item-active-hover-color: #61dafb;
+}
