@@ -1,6 +1,6 @@
 <template>
-	<div @click="showDrawer">
-		<div ref="ChatBtn" class="rounded bg-blue-300 w-12 h-12 shadow border flex items-center justify-center">
+	<div @click="showDrawer" ref="settingRef" class="fixed right-4 bottom-1/2 z-2">
+		<div ref="settingBtn" class="rounded bg-blue-300 w-12 h-12 shadow-lg flex items-center justify-center">
 			<el-icon class="text-white">
 				<Setting />
 			</el-icon>
@@ -25,24 +25,26 @@
 
 <script lang="ts" setup>
 
-import { nextTick, onMounted, Ref, ref } from 'vue';
+import { onMounted, Ref, ref } from 'vue';
 import { Setting } from '@element-plus/icons-vue'
+
+const emit = defineEmits(["updatePosition"])
 
 const transformX = ref(0)
 const transformY = ref(0)
 const drawer = ref(false)
 const chatBtnMouseX = ref(0)
 const chatBtnMouseY = ref(0)
-const chatBtnDown = ref(false)
-const chatBtnDragged = ref(false)
+const settingRef = ref(null)
 const settingIconTop = ref(0)
+const chatBtnDown = ref(false)
 const settingIconBottom = ref(0)
-const ChatBtn: Ref<HTMLDivElement | null> = ref(null)
-
+const chatBtnDragged = ref(false)
+const settingBtn: Ref<HTMLDivElement | null> = ref(null)
 
 // 拖动之后恢复 Y 轴的位置, 计算拖动边界, 防止拖到屏幕外
-const resetY = () => {
-	ChatBtn.value!.style.transition = `all ease 0.2s`;
+const resetBoundary = () => {
+	settingBtn.value!.style.transition = `all ease 0.2s`;
 
 	// 🔼 scroll
 	if (transformY.value < 0 && Math.abs(transformY.value) > settingIconTop.value) {
@@ -54,22 +56,16 @@ const resetY = () => {
 		transformY.value = settingIconBottom.value;
 	}
 
-	ChatBtn.value!.style.transform = `translate3d(0, ${transformY.value}px, 0)`;
-}
+	settingBtn.value!.style.transform = `translate3d(0, ${transformY.value}px, 0)`;
 
-// 改变按钮位置TODO: 位置移动后, 更新fixed 的位置, 不然会抖动
-const changePosition = (x: number, y: number) => {
-	console.log(x, y);
-	// console.log(x);
-	// console.log(y);
-	// console.log(viewportHeight);
-	// if (y < 0) {
-	// 	transformY.value = viewportHeight - 100
-	// 	ChatBtn.value!.style.bottom = `${transformY.value}px`;
-	// }
-	// transformY.value = y
-	// ChatBtn.value!.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
-	// ChatBtn.value!.style.bottom = `${transformY.value}px`;
+	// setTimeout(() => {
+	// 	settingRef.value!.style.bottom = `calc(50% - ${transformY.value}px)`;
+	// 	settingBtn.value!.style.transform = `translate3d(0, 0, 0)`;
+	// 	console.log(settingRef.value!.style!.bottom);
+	// 	console.log(transformY.value);
+	// }, 1000);
+	// emit('updatePosition', transformX.value, transformY.value)
+
 }
 
 const showDrawer = () => {
@@ -79,9 +75,9 @@ const showDrawer = () => {
 
 const initDrag = () => {
 
-	ChatBtn.value?.addEventListener('mousedown', (e) => {
-		ChatBtn.value!.style.transition = 'none'
-		ChatBtn.value!.style.cursor = 'grab'
+	settingBtn.value?.addEventListener('mousedown', (e) => {
+		settingBtn.value!.style.transition = 'none'
+		settingBtn.value!.style.cursor = 'grab'
 		if (!chatBtnMouseX.value && !chatBtnMouseY.value) {
 			chatBtnMouseX.value = e.clientX;
 			chatBtnMouseY.value = e.clientY;
@@ -90,14 +86,15 @@ const initDrag = () => {
 	});
 
 	document.addEventListener('mouseup', (e) => {
-		if (!ChatBtn.value) return
-		ChatBtn.value!.style.cursor = 'default'
+		if (!settingBtn.value) return
+		if (!chatBtnDown.value) return
+
+		settingBtn.value!.style.cursor = 'default'
 		// set chatBtnMouseX and chatBtnMouseY to micro task
 		setTimeout(() => {
-			resetY()
+			resetBoundary()
 			chatBtnDragged.value = false;
 			chatBtnDown.value = false;
-			// changePosition(e.clientX, e.clientY)
 		}, 0);
 	});
 
@@ -107,23 +104,19 @@ const initDrag = () => {
 		chatBtnDragged.value = true;
 		transformX.value = e.clientX - chatBtnMouseX.value;
 		transformY.value = e.clientY - chatBtnMouseY.value;
-		ChatBtn.value!.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
+		settingBtn.value!.style.transform = `translate3d(${transformX.value}px, ${transformY.value}px, 0)`;
 		e.stopPropagation();
 	});
 }
 
 onMounted(async () => {
-	await nextTick();
 	initDrag();
-	settingIconTop.value = ChatBtn.value!.getBoundingClientRect().top
-	settingIconBottom.value = ChatBtn.value!.getBoundingClientRect().bottom
+	settingIconTop.value = settingBtn.value!.getBoundingClientRect().top
+	settingIconBottom.value = settingBtn.value!.getBoundingClientRect().bottom
 })
 </script>
 
 <style>
-/* .layout-container {
-	background-color: var(--el-color-primary-light-8);
-} */
 .layout-wrapper {
 	border: 1px solid red;
 	display: flex;
