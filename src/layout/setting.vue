@@ -1,10 +1,11 @@
 <template>
-	<div @click="showDrawer" ref="settingRef" class="fixed right-4 bottom-1/2 z-2">
-		<div ref="settingBtn" class="rounded bg-blue-300 w-12 h-12 shadow-lg flex items-center justify-center">
+	<div @click="showDrawer" ref="settingRef" class="fixed right-4 bottom-1/2 z-999">
+		<div ref="settingBtn" class="rounded bg-blue-300 w-10 h-10 shadow-lg flex items-center justify-center">
 			<el-icon class="text-white">
 				<Setting />
 			</el-icon>
 		</div>
+
 
 		<el-drawer append-to-body v-model="drawer" title="配置修改" direction="rtl">
 			<el-divider>布局</el-divider>

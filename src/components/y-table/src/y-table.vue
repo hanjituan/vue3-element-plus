@@ -1,5 +1,5 @@
 <template>
-	<div class="bg-white rounded-sm">
+	<div class="rounded-sm">
 		<!-- 表头基础样式 background: '#f5f7fa', height: '40px'  -->
 		<el-table ref="realTable" :data="tableConfig.tableData" v-loading="tableConfig.loading" :key="tableConfig.name"
 			:height="tableConfig.tableHeight" element-loading-text="加载中..." element-loading-spinner="el-icon-loading"

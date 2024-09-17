@@ -1,50 +1,81 @@
 <template>
 	<div class="p-4">
-		vue3 script setup
+
+		<y-tabs class="mb-10px"> </y-tabs>
+
+		<div class="p-4 mb-[10px] w-full bg-white dark:(bg-[#1d1d1d] text-white)">
+			<y-table :tableConfig="tableConfig" @refresh="setPageInfo">
+				<template #operateTpl="{ row }">
+					<el-link type="primary" @click="remove(row)">删除</el-link>
+				</template>
+			</y-table>
+		</div>
 	</div>
 </template>
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, reactive } from 'vue';
+import yTable from '../components/y-table/src/y-table.vue';
+import yTabs from '../components/y-tabs/src/y-tabs.vue';
 
-const init = () => {
-	// 写的有缺陷
-	var a = '1[3[a]2[b]3[c4[d]]]'
+const tableConfig = reactive<any>({
+	name: 'rollInfo',
+	tableData: [],
+	pageNum: 1,
+	pageSize: 10,
+	total: 0,
+	loading: false,
+	autoResize: false,
+	height: 400,
+	otherHeight: 200,
+	align: 'center',
+	showOverflowTooltip: true,
+	columns: [
+		{ label: '序号', type: 'index', prop: 'index', minWidth: 60 },
+		{ label: '编号', prop: 'code', minWidth: 100 },
+		{ label: '种类', prop: 'id', minWidth: 80 },
+		{ label: '位置', prop: 'age', minWidth: 80 },
+		{ label: '其它', slot: 'operateTpl', minWidth: 80 },
+	]
+})
 
-	const numberArr: string[] = [];
-	const letterArr: string[] = [];
-
-	/**
-	 * 准备一个数组 numberArr，用于存放数字
-	 * 准备一个数组 letterArr，用于存放字母
-	 * 如果遇到数字，则将其存入 numberArr
-	 * 如果遇到[ ，则将一个空字符串存入 letterArr
-	 * 如果遇到字母, 则将 letterArr 的最后一个元素与字母拼接
-	 * 如果遇到 ] , 则将numberArr 的最后一个元素弹出, 作为 letterArr 的最后一个元素的重复次数
-	 */
-
-	for (let index = 0; index < a.length; index++) {
-		const element = a[index];
-		if (!isNaN(Number(element))) {
-			numberArr.push(element)
-		}
-		if (element == '[') {
-			letterArr.push('')
-		}
-		// 如果 element 是字母
-		if (isLetter(element)) {
-			letterArr[letterArr.length - 1] = element
-		}
-		if (element == ']') {
-			const num = numberArr.pop()
-			const letter = letterArr.pop()
-			letterArr[letterArr.length - 1] += letter.repeat(num)
-		}
-	}
+function makeFakeData(params: { pageSize?: any; pageNum?: any; total?: any; dutation?: any; }) {
+	return new Promise(resolve => {
+		setTimeout(() => {
+			const data: any = []
+			for (let index = 0; index < (params.total || 12); index++) {
+				data.push({
+					name: '测试数据 ' + index,
+					id: index,
+					code: (Math.random() * 10000).toFixed(0),
+					age: (Math.random() * 100).toFixed(0),
+				})
+			}
+			resolve(data)
+		}, 500 || params.dutation)
+	})
 }
 
-// 定义一个函数，接受一个字符作为参数
-function isLetter(character) {
-	return /[a-zA-Z]/.test(character);
+const init = async (page?: { pageSize: number; pageNum: number }) => {
+	const params = {
+		...page
+	}
+	tableConfig.loading = true
+	const data: any = await makeFakeData(params)
+	tableConfig.tableData = data
+	tableConfig.loading = false
+	tableConfig.total = tableConfig.tableData.length
+}
+
+const setPageInfo = (page: { pageNum?: number; pageSize?: number; }) => {
+	if (page) {
+		tableConfig.pageNum = page.pageNum
+		tableConfig.pageSize = page.pageSize
+	}
+	init()
+}
+
+const remove = (item) => {
+	console.log(item)
 }
 
 onMounted(() => {
