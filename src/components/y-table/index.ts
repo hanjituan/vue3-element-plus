@@ -1,3 +1,3 @@
-import YTable from './src/y-table.vue'
+import Ytable from './src/y-table.vue'
 
-export { YTable }
+export { Ytable }
