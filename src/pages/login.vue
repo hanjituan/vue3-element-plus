@@ -31,7 +31,7 @@
 
 			<el-form-item class="animate__animated animate__backInUp !animate-delay-400">
 				<el-button class="w-120px" type='primary' @click='login' :loading="loading">登录</el-button>
-				<el-button @click='reset'>重置</el-button>
+				<!-- <el-button @click='reset'>重置</el-button> -->
 			</el-form-item>
 		</el-form>
 
