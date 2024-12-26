@@ -1,32 +1,45 @@
-// TODO: 待完善, 取elment-ui的table-columns 的属性. 来完善
+import type { TableColumnCtx } from "element-plus/es/components/table/src/table-column/defaults";
+import type { TableInstance } from "element-plus/es/components/table/src/instance";
+
 export interface TableConfig {
-  name: string
-  pageNum?: number
-  pageSize?: number
-  total?: number
-  autoResize?: boolean
-  loading: boolean
-  showOverflowTooltip?: boolean
-  align?: boolean
-  columns?: Array<TableColumnProps>
-  tableData?: Array<Record<string, any>>
+	name?: string;
+	tableData: any[];
+	columns: TableColumnProps[];
+	loading?: boolean;
+	tableHeight?: number;
+	otherHeight?: number;
+	align?: "left" | "center" | "right";
+	showOverflowTooltip?: boolean;
+	defaultValue?: string;
+	// 分页相关
+	pageNum?: number;
+	pageSize?: number;
+	total?: number;
+	// 自动调整大小
+	autoResize?: boolean;
 }
 
-export interface TableColumnProps {
-  selectable?: Function // 仅对 type=selection 的列有效，类型为 Function，Function 的返回值用来决定这一行的 CheckBox 是否可以勾选 (row: any, index: number) => boolean
-  type?: string
-  label?: string
-  prop?: string
-  width?: number | string
-  fixed?: boolean | string
-  align?: string
-  slot?: string
-  showOverflowTooltip?: boolean
-  component?: any
-  map?: Record<string, string>
-  isEdit?: boolean
-  vif?: boolean
-  header?: any
-  render?: (scope: any) => any
-  _children?: Array<TableColumnProps>
+// 扩展 TableColumnProps，继承 Element Plus 的类型
+export interface TableColumnProps extends Partial<TableColumnCtx<any>> {
+	vif?: boolean;
+	slot?: string;
+	render?: (scope: any) => any;
+	header?: {
+		slot?: string;
+	};
+	children?: TableColumnProps[];
+}
+
+// 使用 Element Plus 的表格实例类型
+export interface YTableInstance extends Partial<TableInstance> {
+	realTable: any;
+	clearSelection: () => void;
+	toggleRowSelection: (row: any, selected?: boolean) => void;
+	toggleAllSelection: () => void;
+	toggleRowExpansion: (row: any, expanded?: boolean) => void;
+	setCurrentRow: (row: any) => void;
+	clearSort: () => void;
+	clearFilter: (columnKeys?: string[]) => void;
+	doLayout: () => void;
+	sort: (prop: string, order: string) => void;
 }
