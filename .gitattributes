@@ -1,3 +1,6 @@
+# 自动检测文本文件并进行规范化
 * text=auto eol=lf
-*.{cmd,[cC][mM][dD]} text eol=crlf
-*.{bat,[bB][aA][tT]} text eol=crlf 
+
+# 指定特定文件使用CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf 

@@ -56,9 +56,7 @@ function makeFakeData(params: { pageSize?: any; pageNum?: any; total?: any; duta
 }
 
 const init = async (page?: { pageSize: number; pageNum: number }) => {
-	const params = {
-		...page
-	}
+	const params = { ...page }
 	tableConfig.loading = true
 	const data: any = await makeFakeData(params)
 	tableConfig.tableData = data
