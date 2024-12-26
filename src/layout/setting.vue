@@ -6,7 +6,6 @@
 			</el-icon>
 		</div>
 
-
 		<el-drawer append-to-body v-model="drawer" title="配置修改" direction="rtl">
 			<el-divider>布局</el-divider>
 

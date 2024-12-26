@@ -42,7 +42,7 @@ const isHovering = ref(false)
 
 const value2 = ref(false)
 
-const switchTheme = (value) => {
+const switchTheme = (value: boolean) => {
 	if (value) {
 		document.documentElement.classList.add('dark')
 		document.documentElement.classList.remove('light')
